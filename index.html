@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feliz cumpleaños Dayana</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;height:100%;background:#000;color:#fff;font:16px/1.5 Fredoka,system-ui,sans-serif;overflow:hidden}
+#stars,#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#fx{z-index:80}
+button{font:600 16px Fredoka,sans-serif;cursor:pointer;border:0}
+#stage{position:fixed;inset:0;display:grid;place-items:center;z-index:2}
+#gift{background:none;padding:0;width:130px;position:absolute;left:50%;top:50%;translate:-50% -60%;
+ filter:drop-shadow(0 0 24px rgba(255,60,90,.55));animation:wig 1.8s ease-in-out infinite;transition:opacity .6s,scale .6s}
+#gift svg{width:100%;display:block;overflow:visible}
+#gift .lid{transition:transform .8s cubic-bezier(.3,1.5,.5,1)}
+#gift.open{animation:none}
+#gift.open .lid{transform:translate(0,-120px) rotate(-35deg)}
+#gift.gone{opacity:0;scale:.4;pointer-events:none}
+@keyframes wig{0%,60%,100%{rotate:0deg}70%{rotate:-7deg}80%{rotate:7deg}90%{rotate:-3deg}}
+#tap{position:absolute;left:0;right:0;top:calc(50% + 62px);text-align:center;letter-spacing:.25em;font-size:12px;color:#ff8aa5;
+ animation:blink 1.5s ease-in-out infinite;transition:opacity .4s}
+@keyframes blink{50%{opacity:.35}}
+#title{position:absolute;top:max(4vh,18px);left:0;right:0;text-align:center;opacity:0;transform:translateY(-20px);transition:1s .4s;padding:0 12px}
+#title.on{opacity:1;transform:none}
+#title .dedi{font-size:clamp(15px,3vw,20px);color:#ffb3d1;margin-top:2px}
+#title small{display:block;font-size:clamp(18px,3.5vw,26px);color:#ffd6e4;letter-spacing:.06em}
+#title b{display:block;font:400 clamp(44px,10vw,84px)/1.15 Pacifico,cursive;color:#ff8fc8;
+ text-shadow:0 0 14px #ff3d8b,0 0 40px rgba(255,61,139,.6)}
+#cakeWrap{position:absolute;left:50%;top:53%;translate:-50% -50%;width:min(540px,100vw);opacity:0;scale:.3;transition:1s cubic-bezier(.3,1.4,.5,1) .6s;text-align:center}
+#cakeWrap.on{opacity:1;scale:1}
+#cake{width:100%;display:block;overflow:visible;filter:drop-shadow(0 0 30px rgba(255,120,170,.28))}
+.candle{cursor:pointer}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick .45s ease-in-out infinite alternate}
+@keyframes flick{to{transform:scale(.85,1.1) rotate(4deg)}}
+.candle.out .flame{display:none}
+.glowc{transform-box:fill-box;transform-origin:center;animation:flick .45s ease-in-out infinite alternate}
+.candle.out .glowc{display:none}
+#cakeHint{margin:6px 0 0;font-size:14px;color:#ffd6e4;opacity:.85}
+#wish{font:400 clamp(22px,5vw,30px) Pacifico,cursive;color:#ffe27a;text-shadow:0 0 14px #ffb300;margin:4px 0 0;display:none}
+.balloon{position:fixed;left:0;top:0;width:74px;z-index:20;background:none;padding:0;will-change:transform}
+.balloon svg{width:100%;display:block;filter:drop-shadow(0 0 10px rgba(255,255,255,.18))}
+.balloon .ico{position:absolute;top:24px;left:0;right:0;text-align:center;font-size:20px}
+.bubble{position:fixed;z-index:30;max-width:200px;background:#fff;color:#d6246e;border-radius:20px;padding:12px 16px;
+ font-weight:600;font-size:16px;text-align:center;box-shadow:0 0 24px rgba(255,79,163,.8);translate:-50% -50%;animation:bub 3.2s ease forwards;pointer-events:none}
+@keyframes bub{0%{scale:.3;opacity:0}12%{scale:1.08;opacity:1}20%{scale:1}80%{opacity:1;transform:translateY(-20px)}100%{opacity:0;transform:translateY(-50px)}}
+#bottom{position:fixed;left:0;right:0;bottom:max(16px,2vh);z-index:40;display:grid;justify-items:center;gap:10px;
+ opacity:0;transform:translateY(30px);transition:1s 1s;padding:0 12px}
+#bottom.on{opacity:1;transform:none}
+#spotify{width:min(340px,92vw);border-radius:12px;overflow:hidden}
+.green{display:inline-flex;align-items:center;gap:6px;background:#1ed760;color:#000;border-radius:999px;padding:9px 20px;
+ font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 0 16px rgba(30,215,96,.55)}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.pill{background:rgba(255,255,255,.1);color:#fff;border-radius:999px;padding:9px 18px;font-size:14px;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px)}
+.modal{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.82);display:none;place-items:center;padding:20px}
+.modal.on{display:grid;animation:fade .4s ease}
+@keyframes fade{from{opacity:0}}
+.letter{width:min(500px,92vw);max-height:80svh;overflow:auto;background:#fff7fb;color:#5b2340;border-radius:22px;padding:30px 26px;
+ box-shadow:0 0 0 5px #ff8fc8,0 0 50px rgba(255,79,163,.7);font-size:17px;line-height:32px;
+ background-image:repeating-linear-gradient(transparent 0 31px,#ffe0ef 31px 32px);animation:unfold .7s ease}
+@keyframes unfold{from{transform:scaleY(.1);opacity:0}}
+.letter p{margin:0 0 32px}
+.letter .sign{font-family:Pacifico,cursive;color:#ff4fa3;text-align:end;font-size:22px;margin:0}
+.polaroid{background:#fff;padding:12px 12px 16px;border-radius:10px;width:min(420px,88vw);rotate:-2deg;box-shadow:0 0 50px rgba(255,79,163,.7);animation:unfold .5s ease}
+.polaroid img{width:100%;max-height:62svh;object-fit:contain;display:block;background:#ffe6f2;border-radius:4px}
+.polaroid p{margin:8px 0 0;text-align:center;color:#d6246e;font:400 22px Pacifico,cursive}
+.nofoto{display:grid;place-items:center;aspect-ratio:1;background:#ffe6f2;color:#d6246e;padding:20px;text-align:center}
+.x{display:block;margin:14px auto 0;background:#ff4fa3;color:#fff;border-radius:999px;padding:10px 26px}
+@media (max-height:700px){#cakeWrap{top:52%;width:min(400px,86vw)}}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<canvas id="fx"></canvas>
+
+<div id="stage">
+ <div id="title"><small>¡Feliz cumpleaños!</small><b id="nombre"></b><small id="dedi" class="dedi"></small></div>
+ <div id="cakeWrap">
+  <svg id="cake" viewBox="0 0 560 380"></svg>
+  <p id="cakeHint">Toca las velitas para apagarlas 🕯️</p>
+  <p id="wish">✨ ¡Pide un deseo! ✨</p>
+ </div>
+ <button id="gift" aria-label="Abrir regalo">
+  <svg viewBox="0 0 120 120">
+   <rect x="16" y="52" width="88" height="62" rx="6" fill="#e3123f"/>
+   <rect x="16" y="52" width="88" height="62" rx="6" fill="url(#shine)"/>
+   <rect x="53" y="52" width="14" height="62" fill="#ffc83d"/>
+   <g class="lid">
+    <rect x="10" y="40" width="100" height="18" rx="5" fill="#ff2a52"/>
+    <rect x="53" y="40" width="14" height="18" fill="#ffd45e"/>
+    <path d="M60 40 C44 14 22 26 38 40Z M60 40 C76 14 98 26 82 40Z" fill="none" stroke="#ffc83d" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="60" cy="39" r="6" fill="#ffd45e"/>
+   </g>
+   <defs><linearGradient id="shine" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".15"/></linearGradient></defs>
+  </svg>
+ </button>
+ <div id="tap">TOCA PARA ABRIR 🎁</div>
+</div>
+
+<div id="bottom">
+ <div id="spotify"></div>
+ <div class="row">
+  <a class="green" href="https://open.spotify.com/intl-es/track/5GIrmSQBxO9LTunilbwMWw" target="_blank">▶ Escuchar completa en Spotify</a>
+ </div>
+ <div class="row">
+  <button class="pill" id="openLetter">💌 Leer carta</button>
+  <button class="pill" id="more">🎈 Más globos</button>
+ </div>
+</div>
+
+<div class="modal" id="mLetter"><div><div class="letter"><div id="carta"></div><p class="sign" id="firma"></p></div><button class="x" data-close>Cerrar</button></div></div>
+<div class="modal" id="mPhoto"><div><div class="polaroid" id="pol"></div><button class="x" data-close>Cerrar</button></div></div>
+
+<script>
+/* ===================== ✏️ AQUÍ CAMBIAS TODO ===================== */
+const NOMBRE = 'Dayana';
+const DEDICATORIA = 'Eres como mi hermana 💗';
+
+const CARTA = [
+  'Hoy el universo entero celebra que naciste, y yo también.',
+  'Gracias por cada risa, cada plática y cada momento contigo. Eres de esas personas que hacen todo más bonito.',
+  'Eres como mi hermana: la familia que la vida me dejó escoger, y no te cambiaría por nada.',
+  'Que este año te traiga sueños cumplidos, abrazos infinitos y todo el amor que mereces.',
+  '¡Feliz cumpleaños! Te quiero muchísimo 💗'
+];
+const FIRMA = 'Con cariño, tu amiga';
+
+const PALABRAS = [
+  'Eres como mi hermana 💗',
+  'Eres increíble 💖',
+  'Tu risa es mi favorita',
+  'Brillas como estrella ⭐',
+  'Mereces todo lo bonito',
+  'Vale por un abrazo gigante 🤗',
+  'Siempre contigo',
+  'Eres única 🌸',
+  'Este año es tuyo ✨',
+  'Gracias por existir',
+  'Mi persona favorita 🫶',
+  'Eres preciosa por dentro y por fuera',
+  'Contigo todo es más divertido 😂',
+  'Te quiero muchísimo 💕',
+];
+const FOTOS = [];
+/* =============================================================== */
+
+{
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let W=innerWidth,H=innerHeight;
+
+$('#nombre').textContent=NOMBRE;$('#dedi').textContent=DEDICATORIA;
+$('#carta').innerHTML='<p>Querida '+esc(NOMBRE)+':</p>'+CARTA.map(t=>'<p>'+esc(t)+'</p>').join('');
+$('#firma').textContent=FIRMA;
+
+const sc=$('#stars'),sx=sc.getContext('2d');let stars=[],shoot=null;
+function makeStars(){W=innerWidth;H=innerHeight;const d=devicePixelRatio;sc.width=W*d;sc.height=H*d;sx.setTransform(d,0,0,d,0,0);
+ stars=Array.from({length:Math.round(W*H/2200)},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.2,p:Math.random()*6,s:.015+Math.random()*.04}))}
+makeStars();addEventListener('resize',()=>{makeStars();size()});
+(function sky(){sx.clearRect(0,0,W,H);
+ for(const s of stars){s.p+=s.s;sx.globalAlpha=.25+.75*Math.abs(Math.sin(s.p));sx.fillStyle='#fff';sx.beginPath();sx.arc(s.x,s.y,s.r,0,7);sx.fill()}
+ if(!shoot&&Math.random()<.008)shoot={x:Math.random()*W*.7,y:Math.random()*H*.4,l:0};
+ if(shoot){shoot.l+=16;const g=sx.createLinearGradient(shoot.x+shoot.l-90,0,shoot.x+shoot.l,0);g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(1,'#fff');
+  sx.globalAlpha=1-shoot.l/600;sx.strokeStyle=g;sx.lineWidth=1.6;sx.beginPath();sx.moveTo(shoot.x+shoot.l,shoot.y+shoot.l*.35);sx.lineTo(shoot.x+shoot.l-90,shoot.y+shoot.l*.35-31);sx.stroke();if(shoot.l>600)shoot=null}
+ sx.globalAlpha=1;requestAnimationFrame(sky)})();
+
+const cv=$('#fx'),cx=cv.getContext('2d');let parts=[],raf=null;
+function size(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio}size();
+const cols=['#ff4fa3','#ff8fc8','#ffd6e4','#fff','#ffe27a','#c9a7ff','#ff2e63'];
+function burst(x,y,n=90){for(let i=0;i<n;i++){const a=Math.random()*6.3,v=3+Math.random()*8;
+ parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-4,s:5+Math.random()*8,c:cols[i%7],t:i%2,r:Math.random()*6,l:130+Math.random()*60})}if(!raf)tick()}
+function tick(){const d=devicePixelRatio;cx.setTransform(d,0,0,d,0,0);cx.clearRect(0,0,W,H);parts=parts.filter(p=>p.l>0);
+ for(const p of parts){p.vy+=.16;p.x+=p.vx;p.y+=p.vy;p.r+=.08;p.l--;cx.save();cx.globalAlpha=Math.min(1,p.l/40);cx.fillStyle=p.c;cx.translate(p.x,p.y);cx.rotate(p.r);
+  if(p.t){cx.beginPath();cx.moveTo(0,-p.s/3);cx.bezierCurveTo(-p.s/2,-p.s,-p.s,0,0,p.s/2);cx.bezierCurveTo(p.s,0,p.s/2,-p.s,0,-p.s/3);cx.fill()}else cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()}
+ raf=parts.length?requestAnimationFrame(tick):null}
+
+let ctrl=null;
+window.onSpotifyIframeApiReady=api=>api.createController($('#spotify'),{uri:'spotify:track:5GIrmSQBxO9LTunilbwMWw',width:'100%',height:80},c=>ctrl=c);
+
+/* pastel realista + lirios y tulipanes */
+{
+let seed=11;const rnd=()=>(seed=seed*16807%2147483647)/2147483647;
+const P=(cx,cy,rx,ry,t)=>[cx-rx*Math.cos(t),cy+ry*Math.sin(t)];
+const defs=`<defs>
+ <linearGradient id="bPink" x1="0" x2="1"><stop offset="0" stop-color="#b92d63"/><stop offset=".28" stop-color="#ff8db5"/><stop offset=".5" stop-color="#ff9cc0"/><stop offset=".8" stop-color="#e2578d"/><stop offset="1" stop-color="#a82358"/></linearGradient>
+ <linearGradient id="bWhite" x1="0" x2="1"><stop offset="0" stop-color="#d8c1cb"/><stop offset=".3" stop-color="#fff"/><stop offset=".55" stop-color="#fff6f9"/><stop offset=".85" stop-color="#ead6de"/><stop offset="1" stop-color="#c9aeba"/></linearGradient>
+ <linearGradient id="dWhite" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#f6e7ed"/></linearGradient>
+ <linearGradient id="dPink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8fbb"/><stop offset="1" stop-color="#e0457e"/></linearGradient>
+ <radialGradient id="rosW" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#fbe9f0"/><stop offset="1" stop-color="#d9b3c3"/></radialGradient>
+ <radialGradient id="rosP" cx=".35" cy=".3"><stop offset="0" stop-color="#ffe0ec"/><stop offset=".55" stop-color="#ff7fae"/><stop offset="1" stop-color="#c2346c"/></radialGradient>
+ <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#bfc4d0"/></linearGradient>
+ <radialGradient id="flameG"><stop offset="0" stop-color="#fff7c2" stop-opacity=".9"/><stop offset=".4" stop-color="#ffb627" stop-opacity=".35"/><stop offset="1" stop-color="#ff8a00" stop-opacity="0"/></radialGradient>
+ <linearGradient id="lilyG" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stop-color="#fff1c4"/><stop offset=".18" stop-color="#ff5c9f"/><stop offset=".6" stop-color="#ff7fb3"/><stop offset=".9" stop-color="#ffd3e6"/><stop offset="1" stop-color="#fff"/></linearGradient>
+ <linearGradient id="tulB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb6d1"/><stop offset="1" stop-color="#d93f7b"/></linearGradient>
+ <linearGradient id="tulF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd9e8"/><stop offset=".5" stop-color="#ff86b4"/><stop offset="1" stop-color="#e2558c"/></linearGradient>
+ <linearGradient id="leafG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#1f6b2e"/><stop offset="1" stop-color="#7fd36d"/></linearGradient>
+</defs>`;
+function tier(cx,top,bot,rx,ry,body,drip,ros,n){
+ let s=`<path d="M${cx-rx} ${top}V${bot}A${rx} ${ry} 0 0 0 ${cx+rx} ${bot}V${top}Z" fill="url(#${body})"/>`;
+ let d=`M${cx-rx} ${top-1}`;
+ for(let i=0;i<n;i++){const a=Math.PI*i/n,b=Math.PI*(i+1)/n,[xa,ya]=P(cx,top,rx,ry,a),[xb,yb]=P(cx,top,rx,ry,b);
+  const k=.45+.55*Math.sin((a+b)/2),len=(i%2?(12+rnd()*16):(4+rnd()*5))*k;
+  d+=` L${xa.toFixed(1)} ${(ya+3).toFixed(1)} C${(xa+(xb-xa)*.1).toFixed(1)} ${(ya+len*1.35).toFixed(1)} ${(xb-(xb-xa)*.1).toFixed(1)} ${(yb+len*1.35).toFixed(1)} ${xb.toFixed(1)} ${(yb+3).toFixed(1)}`}
+ d+=` L${cx+rx} ${top-1} A${rx} ${ry} 0 0 0 ${cx-rx} ${top-1}Z`;
+ s+=`<path d="${d}" fill="url(#${drip})"/>`;
+ s+=`<ellipse cx="${cx-rx*.28}" cy="${top-ry*.25}" rx="${rx*.42}" ry="${ry*.32}" fill="#fff" opacity=".35"/>`;
+ const pts=[];for(let i=0;i<=16;i++){const t=Math.PI*i/16;pts.push([...P(cx,bot,rx,ry,t),Math.sin(t)])}
+ pts.sort((p,q)=>p[2]-q[2]);
+ for(const [x,y] of pts)s+=`<circle cx="${x.toFixed(1)}" cy="${(y-1).toFixed(1)}" r="7" fill="url(#${ros})"/><circle cx="${(x-2).toFixed(1)}" cy="${(y-3).toFixed(1)}" r="2" fill="#fff" opacity=".7"/>`;
+ return s;
+}
+function sprinkles(cx,top,rx,ry){let s='';const c=['#ffe27a','#fff','#9fd8ff','#c9a7ff'];
+ for(let i=0;i<26;i++){const t=rnd()*Math.PI*2,r=Math.sqrt(rnd())*.85,x=cx+Math.cos(t)*rx*r,y=top+Math.sin(t)*ry*r;
+  s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="4" height="1.6" rx=".8" fill="${c[i%4]}" transform="rotate(${(rnd()*180)|0} ${x.toFixed(1)} ${y.toFixed(1)})"/>`}return s}
+function lily(x,y,L,rot){
+ const w=L*.34,pet=`M0 0C${w} ${-L*.3} ${w*.75} ${-L*.78} 0 ${-L}C${-w*.75} ${-L*.78} ${-w} ${-L*.3} 0 0Z`;
+ let s=`<g transform="translate(${x} ${y}) rotate(${rot})">`;
+ [[0,1],[120,1],[240,1],[60,.9],[180,.9],[300,.9]].forEach(([a,sc])=>{
+  s+=`<g transform="rotate(${a}) scale(${sc})"><path d="${pet}" fill="url(#lilyG)" stroke="#c42a6c" stroke-width=".5"/>
+  <path d="M0 ${-L*.1}Q${w*.08} ${-L*.5} 0 ${-L*.85}" stroke="#b3185a" stroke-width="1.2" fill="none" opacity=".55"/>`;
+  for(let i=0;i<5;i++)s+=`<circle cx="${((rnd()-.5)*w*.7).toFixed(1)}" cy="${(-L*(.18+rnd()*.32)).toFixed(1)}" r="${(.6+rnd()*.6).toFixed(1)}" fill="#8e0d47"/>`;
+  s+='</g>'});
+ for(let i=0;i<6;i++){const a=i*60+30,r=L*.5,ex=Math.sin(a*Math.PI/180)*r,ey=-Math.cos(a*Math.PI/180)*r;
+  s+=`<path d="M0 0Q${(ex*.4).toFixed(1)} ${(ey*.6).toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}" stroke="#e9f5c8" stroke-width="1" fill="none"/><ellipse cx="${ex.toFixed(1)}" cy="${ey.toFixed(1)}" rx="2.6" ry="1.2" fill="#b3541e" transform="rotate(${a} ${ex.toFixed(1)} ${ey.toFixed(1)})"/>`}
+ return s+`<circle r="2.4" fill="#cfeaa0"/></g>`;
+}
+function tulip(x,y,h,rot,stem){const w=h*.5;
+ return `<g transform="translate(${x} ${y}) rotate(${rot})">
+ <path d="M0 0Q-5 ${stem*.5} ${rot>0?-6:6} ${stem}" stroke="#2f8a3c" stroke-width="3.2" fill="none"/>
+ <path d="M${-w} ${-h*.5}C${-w} ${-h*.05} ${-w*.5} 0 0 0C${w*.5} 0 ${w} ${-h*.05} ${w} ${-h*.5}Q${w*.92} ${-h*.86} ${w*.55} ${-h*.97}Q${w*.32} ${-h*.68} 0 ${-h}Q${-w*.32} ${-h*.68} ${-w*.55} ${-h*.97}Q${-w*.92} ${-h*.86} ${-w} ${-h*.5}Z" fill="url(#tulB)"/>
+ <path d="M${-w*.78} ${-h*.14}C${-w*.88} ${-h*.6} ${-w*.32} ${-h*.92} 0 ${-h*.99}C${w*.32} ${-h*.92} ${w*.88} ${-h*.6} ${w*.78} ${-h*.14}C${w*.4} ${h*.03} ${-w*.4} ${h*.03} ${-w*.78} ${-h*.14}Z" fill="url(#tulF)"/>
+ <path d="M${-w*.25} ${-h*.18}Q${-w*.35} ${-h*.6} ${-w*.05} ${-h*.88}" stroke="#fff" stroke-width="2" fill="none" opacity=".35" stroke-linecap="round"/></g>`}
+function leaf(x,y,l,rot){return `<g transform="translate(${x} ${y}) rotate(${rot})"><path d="M0 0C${l*.2} ${-l*.4} ${l*.12} ${-l*.8} 0 ${-l}C${-l*.26} ${-l*.7} ${-l*.22} ${-l*.3} 0 0Z" fill="url(#leafG)"/><path d="M0 0Q${l*.02} ${-l*.5} 0 ${-l*.95}" stroke="#a8e69a" stroke-width=".8" fill="none" opacity=".6"/></g>`}
+function stem(x,y,bx,c){return `<path d="M${x} ${y}Q${(x+bx)/2+c} ${(y+380)/2} ${bx} 380" stroke="#2f8a3c" stroke-width="3.4" fill="none"/>`}
+function bouquet(m){const X=x=>m?560-x:x,R=r=>m?-r:r;let s='';
+ [[34,-56,92],[62,-30,130],[96,-6,150],[130,18,110],[156,38,80],[16,-74,70]].forEach(([x,r,l])=>s+=leaf(X(x),380,l,R(r)));
+ [[40,212,46,-18,168],[88,166,52,-5,214],[132,226,42,12,154],[18,282,40,-32,98],[158,292,36,22,88]].forEach(([x,y,h,r,st])=>s+=tulip(X(x),y,h,R(r),st));
+ [[70,280,60,10],[108,206,46,-8],[134,336,44,-16],[28,346,40,26]].forEach(([x,y,L,r])=>s+=stem(X(x),y,X(x+(m?-6:6)),R(8))+lily(X(x),y,L,R(r)));
+ return s}
+let cake=defs+`<g transform="translate(80 0)"><ellipse cx="200" cy="330" rx="176" ry="26" fill="#ff8fc8" opacity=".18"/>
+ <ellipse cx="200" cy="322" rx="166" ry="24" fill="url(#plate)"/><ellipse cx="200" cy="318" rx="156" ry="19" fill="#fdfdff"/>`;
+cake+=tier(200,206,304,132,26,'bPink','dWhite','rosW',14)+sprinkles(200,206,118,22);
+cake+=tier(200,128,206,90,18,'bWhite','dPink','rosP',12);
+cake+=`<g id="candles"></g></g>`+bouquet(0)+bouquet(1);
+document.getElementById('cake').innerHTML=cake;
+}
+/* velitas */
+const cpos=[[181,121],[219,121],[162,134],[200,139],[238,134]],cc=['#9fd8ff','#c9a7ff','#ff8fc8','#ffe27a','#7ee0b5'];
+$('#candles').innerHTML=cpos.map(([x,y],i)=>`<g class="candle"><rect x="${x-12}" y="${y-62}" width="24" height="66" fill="transparent"/>
+ <circle class="glowc" cx="${x}" cy="${y-50}" r="20" fill="url(#flameG)"/>
+ <rect x="${x-4.5}" y="${y-38}" width="9" height="38" rx="2.5" fill="${cc[i]}"/>
+ <rect x="${x-4.5}" y="${y-38}" width="3" height="38" fill="#fff" opacity=".35"/>
+ <path d="M${x-4.5} ${y-30} L${x+4.5} ${y-34} M${x-4.5} ${y-20} L${x+4.5} ${y-24} M${x-4.5} ${y-10} L${x+4.5} ${y-14}" stroke="#fff" stroke-width="2" opacity=".8"/>
+ <line x1="${x}" y1="${y-38}" x2="${x}" y2="${y-44}" stroke="#444" stroke-width="1.5"/>
+ <path class="flame" d="M${x} ${y-62} C${x+7} ${y-53} ${x+6} ${y-44} ${x} ${y-44} C${x-6} ${y-44} ${x-7} ${y-53} ${x} ${y-62}Z" fill="#ffb627"/>
+ <path class="flame" d="M${x} ${y-55} C${x+3.5} ${y-50} ${x+3} ${y-45} ${x} ${y-45} C${x-3} ${y-45} ${x-3.5} ${y-50} ${x} ${y-55}Z" fill="#fff6c2"/></g>`).join('');
+const candles=[...document.querySelectorAll('.candle')];
+candles.forEach(c=>c.addEventListener('click',()=>{
+ if(c.classList.contains('out'))return;c.classList.add('out');
+ const r=c.getBoundingClientRect();burst(r.left+r.width/2,r.top+10,14);
+ if(candles.every(k=>k.classList.contains('out'))){$('#cakeHint').style.display='none';$('#wish').style.display='block';
+  for(let i=0;i<5;i++)setTimeout(()=>burst(Math.random()*W,H*.3,60),i*200);
+  setTimeout(()=>{candles.forEach(k=>k.classList.remove('out'));$('#wish').style.display='none';$('#cakeHint').style.display='block'},9000)}
+}));
+
+/* globos que salen de la caja y flotan */
+const bc=['#ff2e63','#ff8fc8','#c9a7ff','#ffd6e4','#ff5c9a','#9fd8ff','#ffe27a','#7ee0b5','#ff9a3d'];
+let balloons=[];
+const BW=()=>W<600?60:74;
+function spot(n){const bw=BW(),cl=v=>Math.min(Math.max(v,28),W-bw-28);
+ if(W<600)return {tx:cl(Math.random()*(W-bw)),ty:H*.19+Math.random()*H*.17};
+ if(n%3===0)return {tx:cl(Math.random()*(W-bw)),ty:H*.15+Math.random()*H*.12};
+ const band=Math.max(bw+40,(W-Math.min(540,W))/2),side=n%2;
+ const x=side?W-band+Math.random()*(band-bw-20):20+Math.random()*(band-bw-20);
+ return {tx:cl(x),ty:W<600?H*.24+Math.random()*H*.2:H*.3+Math.random()*H*.4}}
+function launch(fromX,fromY){
+ const items=[...PALABRAS.map(w=>({w})),...FOTOS.map(([src,cap])=>({src,cap}))].sort(()=>Math.random()-.5);
+ items.forEach((it,i)=>setTimeout(()=>{
+  const el=document.createElement('button');el.className='balloon';el.style.width=BW()+'px';el.setAttribute('aria-label','Globo');
+  const col=bc[(balloons.length+i)%bc.length];
+  el.innerHTML=`<svg viewBox="0 0 100 160"><path d="M50 116 Q42 132 54 142 Q64 152 50 160" stroke="rgba(255,255,255,.6)" stroke-width="1.6" fill="none"/>
+   <ellipse cx="50" cy="56" rx="40" ry="50" fill="${col}"/><path d="M44 104 L56 104 L50 114Z" fill="${col}"/>
+   <ellipse cx="34" cy="34" rx="8" ry="15" fill="#fff" opacity=".5" transform="rotate(25 34 34)"/></svg><span class="ico">💌</span>`;
+  document.body.appendChild(el);
+  const b={el,it,x:fromX-BW()/2,y:fromY-60,...spot(balloons.length),ph:Math.random()*6,sp:.6+Math.random()*.6,launched:performance.now()};
+  balloons.push(b);
+  el.addEventListener('click',()=>pop(b));
+ },i*180));
+}
+function pop(b){
+ const r=b.el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/3;
+ b.el.remove();balloons=balloons.filter(k=>k!==b);burst(x,y,40);
+ if(b.it.src!=null)openPhoto(b.it.src,b.it.cap);
+ else{const s=document.createElement('div');s.className='bubble';s.textContent=b.it.w;
+  s.style.left=Math.min(Math.max(x,110),W-110)+'px';s.style.top=Math.max(y,60)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),3300)}
+}
+(function fly(t){
+ for(const b of balloons){
+  const k=Math.min(1,(t-b.launched)/1800),e=1-(1-k)**3;
+  const fx=b.tx+Math.sin(t/1000*b.sp+b.ph)*26, fy=b.ty+Math.cos(t/1300*b.sp+b.ph)*18;
+  b.x+=(fx-b.x)*(.02+e*.03);b.y+=(fy-b.y)*(.02+e*.03);
+  b.el.style.transform=`translate(${b.x}px,${b.y}px) rotate(${Math.sin(t/900+b.ph)*6}deg) scale(${.4+.6*e})`;
+ }
+ requestAnimationFrame(fly)})(0);
+
+/* abrir caja */
+const gift=$('#gift');
+gift.addEventListener('click',()=>{
+ if(gift.classList.contains('open'))return;gift.classList.add('open');$('#tap').style.display='none';
+ try{ctrl&&ctrl.play()}catch(e){}
+ const r=gift.getBoundingClientRect(),gx=r.left+r.width/2,gy=r.top+r.height/3;burst(gx,gy,150);
+ launch(gx,gy);
+ setTimeout(()=>{gift.classList.add('gone');$('#title').classList.add('on');$('#cakeWrap').classList.add('on');$('#bottom').classList.add('on')},900);
+});
+$('#more').addEventListener('click',()=>launch(W/2,H*.55));
+
+/* modales */
+function openPhoto(src,cap){
+ const pol=$('#pol');pol.innerHTML='<img alt=""><p>'+esc(cap||'')+'</p>';
+ const img=pol.querySelector('img');img.onerror=()=>{img.outerHTML='<div class="nofoto">Aquí va tu foto 💗<br>(cámbiala en la lista FOTOS)</div>'};img.src=src;
+ $('#mPhoto').classList.add('on');
+}
+$('#openLetter').addEventListener('click',()=>$('#mLetter').classList.add('on'));
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.hasAttribute('data-close'))m.classList.remove('on')}));
+}
+</script>
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+</body>
+</html>
